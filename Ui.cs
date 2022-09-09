@@ -2,24 +2,25 @@
 
 public static class Ui
 {
-    public static void Start(Action onCancel, Action onRegister, CancellationToken cancellationToken)
+    public static async Task Start(Action onCancel, Action onRegister, CancellationToken cancellationToken)
     {
-        Task.Run(() =>
+        while (cancellationToken.IsCancellationRequested is false)
+        {
+            while (Console.KeyAvailable is false && cancellationToken.IsCancellationRequested is false)
             {
-                while (cancellationToken.IsCancellationRequested is false)
-                {
-                    var key = Console.ReadKey(true);
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.Escape:
-                            onCancel();
-                            break;
-                        case ConsoleKey.Spacebar:
-                            onRegister();
-                            break;
-                    }
-                }
-            }, cancellationToken);
+                await Task.Delay(5, cancellationToken);
+            }
+            var key = Console.ReadKey(true);
+            switch (key.Key)
+            {
+                case ConsoleKey.Escape:
+                    onCancel();
+                    break;
+                case ConsoleKey.Spacebar:
+                    onRegister();
+                    break;
+            }
+        }
     }
 
 
