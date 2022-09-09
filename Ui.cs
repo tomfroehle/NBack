@@ -35,6 +35,7 @@ public static class Ui
     public static void Print(TestAuswertung auswertung)
     {
         Console.Clear();
-        Console.WriteLine(auswertung);
+        Console.WriteLine($"Reize: {string.Concat(auswertung.Reize)}");
+        Console.WriteLine($"Antworten: {string.Concat(auswertung.Antworten.Select(a => a ? "J" : "N"))}");
     }
 }

@@ -8,16 +8,20 @@ public class TestAusführung
 
     public TestAusführung(int anzahlReize)
     {
-        _aktuellerIndex = 0;
+        _aktuellerIndex = -1;
         _antworten = new bool[anzahlReize];
         _anzahlReize = anzahlReize;
     }
 
     public async Task<TestAuswertung> FühreTestAus(int reizDauer, Action<char> onReiz, CancellationToken cancellationToken)
     {
-        var chars = ReizGenerieer.GeneriereReize(_anzahlReize);
-        await ReizEmittierer.StarteReizEmittierung(chars, reizDauer, OnReiz, cancellationToken);
-        return TestAuswerter.WerteTestAus(chars, _antworten, _aktuellerIndex);
+        var reize = ReizGenerierer.GeneriereReize(_anzahlReize);
+        //await foreach (var reiz in ReizEmittierer.StarteReizEmittierung(reize, reizDauer, cancellationToken))
+        //{
+        //    OnReiz(reiz);
+        //}
+        await ReizEmittierer.StarteReizEmittierung(reize, reizDauer, OnReiz, cancellationToken);
+        return TestAuswerter.WerteTestAus(reize, _antworten, _aktuellerIndex);
 
         void OnReiz(char reiz)
         {

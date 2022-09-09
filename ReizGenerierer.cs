@@ -1,6 +1,6 @@
 namespace NBack;
 
-internal static class ReizGenerieer
+internal static class ReizGenerierer
 {
     public static IReadOnlyList<char> GeneriereReize(int numberOfGuesses)
     {
