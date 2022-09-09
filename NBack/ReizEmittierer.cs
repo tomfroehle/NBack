@@ -11,7 +11,7 @@ internal static class ReizEmittierer
             onReiz(reiz);
             try
             {
-                await Task.Delay(reizDauer, cancellationToken).ConfigureAwait(false);
+                await Task.Delay(reizDauer, cancellationToken).ConfigureAwait(true);
             }
             catch (TaskCanceledException)
             {
@@ -27,7 +27,7 @@ internal static class ReizEmittierer
             yield return reiz;
             try
             {
-                await Task.Delay(reizDauer, cancellationToken).ConfigureAwait(false);
+                await Task.Delay(reizDauer, cancellationToken).ConfigureAwait(true);
             }
             catch (TaskCanceledException)
             {
